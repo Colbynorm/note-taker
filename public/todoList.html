@@ -13,14 +13,13 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Note Taker
-    </a>
+  <!-- <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">TODO List</a>
     <div class="icons">
       <i class="fas fa-save text-light save-note"></i>
       <i class="fas fa-pen text-light new-note"></i>
     </div>
-  </nav>
+  </nav> -->
   <div class="container-fluid">
     <div class="row">
       <div class="col-4 list-container">
@@ -30,13 +29,14 @@
         </div>
       </div>
       <div class="col-8">
-        <input class="note-title" placeholder="Note Title" maxlength="28" type="text">
-        <textarea class="note-textarea" placeholder="Note Text"></textarea>
+        <input class="note-title" placeholder="What Do You Need To Get Done?" type="text">
       </div>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="/assets/js/index.js"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 </body>
 
 </html>

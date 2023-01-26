@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // Create New Note
-app.post("/api/notes", function(req, res) {
+app.post("/api/todolist", function(req, res) {
     var newNote = req.body;
     console.log(newNote);
 
@@ -36,7 +36,7 @@ app.post("/api/notes", function(req, res) {
     res.json(newNote);
 });
 
-app.delete("/api/notes/:id", function(req, res) {
+app.delete("/api/todolist/:id", function(req, res) {
     var id = req.params.id;
     id = parseInt(id);
     // id = +id;
@@ -53,16 +53,16 @@ app.delete("/api/notes/:id", function(req, res) {
 });
 
 // Display's All Notes
-app.get("/api/notes", function(req, res) {
+app.get("/api/todolist", function(req, res) {
     return res.json(notes)
 });
 
-app.get("/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "public/notes.html"))
+app.get("/todolist", function(req, res) {
+    res.sendFile(path.join(__dirname, "public/todoList.html"))
 });
 
 app.get("*", function( req, res) {
-    res.sendfile(path.join(__dirname, "public/index.html"))
+    res.sendFile(path.join(__dirname, "public/index.html"))
 });
 
 //Start Server
