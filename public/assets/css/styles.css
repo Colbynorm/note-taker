@@ -18,8 +18,7 @@ html, body {
 .note-textarea, .note-title {
   color: #000000;
   width: 100%;
-  outline: none;
-  border: none;
+  outline: thick double;
 }
 
 .note-textarea {
