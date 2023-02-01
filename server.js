@@ -19,7 +19,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Create New TODO
 app.post("/api/todolist", function(req, res) {
     var newTodo = req.body;
-    console.log(newNote);
 
     // Give  an TODOID
     if(todo.length > 0) {
@@ -41,20 +40,20 @@ app.delete("/api/todolist/:id", function(req, res) {
     id = parseInt(id);
     // id = +id;
     console.log(id)
-    for(let i = 0; i < notes.length; i++){
-        if(notes[i].id === id){
-            notes.splice(i,1);
+    for(let i = 0; i < todo.length; i++){
+        if(todo[i].id === id){
+            todo.splice(i,1);
         }
     }
 
-    fs.writeFileSync("db/db.json", JSON.stringify(notes));
+    fs.writeFileSync("db/db.json", JSON.stringify(todo));
 
     res.json(true)
 });
 
 // Display's All Notes
 app.get("/api/todolist", function(req, res) {
-    return res.json(notes)
+    return res.json(todo)
 });
 
 app.get("/todolist", function(req, res) {

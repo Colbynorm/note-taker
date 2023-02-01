@@ -1,5 +1,4 @@
 let $noteTitle = $(".note-title");
-let $noteText = $(".note-textarea");
 let $saveNoteBtn = $(".save-note");
 let $newNoteBtn = $(".new-note");
 let $noteList = $(".list-container .list-group");
@@ -7,7 +6,7 @@ let $noteList = $(".list-container .list-group");
 // activeNote is used to keep track of the note in the textarea
 let activeNote = {};
 
-// A function for getting all notes from the db
+// A function for getting all todos from the db
 let getNotes = function() {
   return $.ajax({
     url: "/api/todolist",
@@ -15,16 +14,16 @@ let getNotes = function() {
   });
 };
 
-// A function for saving a note to the db
-let saveNote = function(note) {
+// A function for saving a todo to the db
+let saveNote = function(data) {
   return $.ajax({
     url: "/api/todolist",
-    data: note,
+    data: data,
     method: "POST"
   });
 };
 
-// A function for deleting a note from the db
+// A function for deleting a todo from the db
 let deleteNote = function(id) {
   return $.ajax({
     url: "api/todolist/" + id,
@@ -38,22 +37,17 @@ let renderActiveNote = function() {
 
   if (activeNote.id) {
     $noteTitle.attr("readonly", true);
-    $noteText.attr("readonly", true);
     $noteTitle.val(activeNote.title);
-    $noteText.val(activeNote.text);
   } else {
     $noteTitle.attr("readonly", false);
-    $noteText.attr("readonly", false);
     $noteTitle.val("");
-    $noteText.val("");
   }
 };
 
-// Get the note data from the inputs, save it to the db and update the view
+// Get the todo data from the inputs, save it to the db and update the view
 let handleNoteSave = function() {
   let newNote = {
     title: $noteTitle.val(),
-    text: $noteText.val()
   };
 
   saveNote(newNote).then(function(data) {
@@ -62,7 +56,7 @@ let handleNoteSave = function() {
   });
 };
 
-// Delete the clicked note
+// Delete the clicked todo
 let handleNoteDelete = function(event) {
   // prevents the click listener for the list from being called when the button inside of it is clicked
   event.stopPropagation();
@@ -81,29 +75,29 @@ let handleNoteDelete = function(event) {
   });
 };
 
-// Sets the activeNote and displays it
+// Sets the todo and displays it
 let handleNoteView = function() {
   activeNote = $(this).data();
   renderActiveNote();
 };
 
-// Sets the activeNote to and empty object and allows the user to enter a new note
+// Sets the todo to and empty object and allows the user to enter a new todo
 let handleNewNoteView = function() {
   activeNote = {};
   renderActiveNote();
 };
 
-// If a note's title or text are empty, hide the save button
+// If a todo is empty, hide the save button
 // Or else show it
 let handleRenderSaveBtn = function() {
-  if (!$noteTitle.val().trim() || !$noteText.val().trim()) {
+  if (!$noteTitle.val().trim()) {
     $saveNoteBtn.hide();
   } else {
     $saveNoteBtn.show();
   }
 };
 
-// Render's the list of note titles
+// Render's the list of todo titles
 let renderNoteList = function(notes) {
   $noteList.empty();
 
@@ -137,7 +131,6 @@ $noteList.on("click", ".list-group-item", handleNoteView);
 $newNoteBtn.on("click", handleNewNoteView);
 $noteList.on("click", ".delete-note", handleNoteDelete);
 $noteTitle.on("keyup", handleRenderSaveBtn);
-$noteText.on("keyup", handleRenderSaveBtn);
 
 // Gets and renders the initial list of notes
 getAndRenderNotes();
