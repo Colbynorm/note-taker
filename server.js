@@ -1,7 +1,7 @@
 // Dependencies
 var express = require("express");
 var path = require("path");
-var notes = require("./db/db.json");
+var todo = require("./db/db.json");
 var fs = require("fs")
 
 // Set Up Express App
@@ -16,28 +16,28 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-// Create New Note
+// Create New TODO
 app.post("/api/todolist", function(req, res) {
-    var newNote = req.body;
+    var newTodo = req.body;
     console.log(newNote);
 
-    // Give Note an ID
-    if(notes.length > 0) {
-        var newID = notes[notes.length -1].id + 1
-        newNote.id = newID
+    // Give  an TODOID
+    if(todo.length > 0) {
+        var newID = todo[todo.length -1].id + 1
+        newTodo.id = newID
     } else {
-        newNote.id = 1;
+        newTodo.id = 1;
     }
 
-    notes.push(newNote);
+    todo.push(newTodo);
 
-    fs.writeFileSync("db/db.json", JSON.stringify(notes));
+    fs.writeFileSync("db/db.json", JSON.stringify(todo));
 
-    res.json(newNote);
+    res.json(newTodo);
 });
 
 app.delete("/api/todolist/:id", function(req, res) {
-    var id = req.params.id;
+    let id = req.params.id;
     id = parseInt(id);
     // id = +id;
     console.log(id)
